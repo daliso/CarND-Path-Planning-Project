@@ -161,11 +161,37 @@ vector<double> getXY(double s, double d, vector<double> maps_s, vector<double> m
 }
 
 
-bool check_if_left_lane_ope()
+bool check_if_lane_open(vector<vector<double>> sensor_fusion, int lane, int prev_size, double car_s)
 {
+    if (lane < 0 || lane > 2)
+    {
+        return false;
+    }
+    for(int i=0; i< sensor_fusion.size();i++)
+    {
+        // car is in my lane
+        float d = sensor_fusion[i][6];
+        if(d < (2+4*lane+2) && d > (2+4*lane-2))
+        {
+            double vx = sensor_fusion[i][3];
+            double vy = sensor_fusion[i][4];
+            double check_speed = sqrt(vx*vx+vy*vy);
+            double check_car_s = sensor_fusion[i][5];
+            
+            check_car_s+=((double) prev_size*.02*check_speed); // if using previous points can project s value out
+            // check s values greater than mine and s gap
+            if((check_car_s > car_s) && (check_car_s-car_s < 40))
+            {
+                return false;
+            }
+            else if ((check_car_s <= car_s) && (car_s-check_car_s < 30))
+            {
+                return false;
+            }
+        }
+    }
     
-    
-    return false;
+    return true;
 }
 
 int main() {
@@ -298,8 +324,8 @@ int main() {
                         bool left_lane_open = false;
                         bool right_lane_open = true;
                         
-                        left_lane_open = check_if_left_lane_ope();
-                        
+                        left_lane_open = check_if_lane_open(sensor_fusion, lane-1, prev_size, car_s);
+                        right_lane_open = check_if_lane_open(sensor_fusion, lane+1, prev_size, car_s);
                         
                         if (left_lane_open){
                             lane-= 1;
