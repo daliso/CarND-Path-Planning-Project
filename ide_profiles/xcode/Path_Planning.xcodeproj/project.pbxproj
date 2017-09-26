@@ -63,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		6992C8B51F6B7C9D00093EB7 /* main-old.cp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "main-old.cp"; path = "src/main-old.cp"; sourceTree = "<group>"; };
+		6992C8B61F6CAA7900093EB7 /* main-old2.cp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "main-old2.cp"; path = "src/main-old2.cp"; sourceTree = "<group>"; };
 		6C2942FC2CBD4F0E98006413 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 		AD661FB723254AD4B7C88FF0 /* path_planning */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = path_planning; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3524F92C874D72A95E035E /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -143,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				BC3524F92C874D72A95E035E /* main.cpp */,
+				6992C8B61F6CAA7900093EB7 /* main-old2.cp */,
 				6992C8B51F6B7C9D00093EB7 /* main-old.cp */,
 			);
 			name = "Source Files";
