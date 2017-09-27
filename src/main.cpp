@@ -160,7 +160,7 @@ vector<double> getXY(double s, double d, vector<double> maps_s, vector<double> m
     
 }
 
-
+// This function checks if there is sufficient gap in the lane for the car to move into
 bool check_if_lane_open(vector<vector<double>> sensor_fusion, int lane, int prev_size, double car_s)
 {
     if (lane < 0 || lane > 2)
@@ -179,7 +179,7 @@ bool check_if_lane_open(vector<vector<double>> sensor_fusion, int lane, int prev
             double check_car_s = sensor_fusion[i][5];
             
             check_car_s+=((double) prev_size*.02*check_speed); // if using previous points can project s value out
-            // check s values greater than mine and s gap
+            // check if the gap is sufficient
             if((check_car_s > car_s) && (check_car_s-car_s < 40))
             {
                 return false;
@@ -205,8 +205,8 @@ int main() {
     vector<double> map_waypoints_dy;
     
     // Waypoint map to read from
-    //string map_file_ = "../data/highway_map.csv";
-    string map_file_ = "../../../data/highway_map.csv";
+    string map_file_ = "../data/highway_map.csv";
+    //string map_file_ = "../../../data/highway_map.csv"; // used this path when running from xcode
 
     // The max s value before wrapping around the track back to 0
     double max_s = 6945.554;
@@ -304,15 +304,8 @@ int main() {
                             // check s values greater than mine and s gap
                             if((check_car_s > car_s) && (check_car_s-car_s < 30))
                             {
-                                // Do some logic here, lower reference velocity so that we don't crash into the car in front of us,
-                                // could also flag to try to change lanes
-                                //ref_vel pap= 29.5; //mph
                                 too_close = true;
-                                
-//                                if(lane > 0)
-//                                {
-//                                    lane = 0;
-//                                }
+
                             }
                         }
                     }
@@ -473,11 +466,8 @@ int main() {
                     }
                     
                     
-                    
                     json msgJson;
 
-                    
-                    // TODO: define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
                     msgJson["next_x"] = next_x_vals;
                     msgJson["next_y"] = next_y_vals;
                     
